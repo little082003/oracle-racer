@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- MQTT.js CDN -->
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-  <script type="module" crossorigin src="./assets/index-DV7nad0k.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-UpLlCFay.css">
+  <script type="module" crossorigin src="./assets/index-C-uy3bDJ.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BE8BNxob.css">
 </head>
 
 <body>
@@ -31,26 +31,62 @@
   <!-- Application Container -->
   <div id="app" class="app-container">
 
-    <!-- Join Screen -->
+    <!-- Join Screen (Oracle Name) -->
     <div id="join-screen" class="glass-card screen active">
       <div class="card-header">
         <div class="icon-wrap"><i class="fa-solid fa-flag-checkered"></i></div>
-        <h1 class="gradient-text">Oracle Racer</h1>
+        <h1 class="gradient-text">Oracle Racer 3D</h1>
       </div>
-      <p class="subtitle">MQTT Real-Time Mashing Battle</p>
+      <p class="subtitle">Anime Real-Time Mashing Battle</p>
 
       <div class="input-group">
         <label for="player-name">Oracle Name (Your Nickname)</label>
         <input type="text" id="player-name" placeholder="Enter your name..." maxlength="20" autocomplete="off" />
       </div>
 
-      <button id="btn-join" class="btn-primary">
-        <i class="fa-solid fa-bolt"></i> Join Race
+      <button id="btn-next" class="btn-primary">
+        Next <i class="fa-solid fa-arrow-right"></i>
       </button>
 
       <div class="hint">
-        <strong>How to play:</strong> Enter name -> Mash <kbd>SPACEBAR</kbd> as fast as you can to reach 100%!
+        <strong>How to play:</strong> Enter name -> Choose Anime Character -> Mash <kbd>SPACEBAR</kbd> to run!
       </div>
+    </div>
+
+    <!-- Character Selection Screen -->
+    <div id="char-select-screen" class="glass-card screen hidden">
+      <div class="card-header">
+        <div class="icon-wrap"><i class="fa-solid fa-users"></i></div>
+        <h2 class="gradient-text">Select Your Racer</h2>
+      </div>
+
+      <div class="character-grid">
+        <!-- Character 1 -->
+        <div class="char-card" data-char="robot">
+          <div class="char-avatar" style="background: #3b82f6;">🤖</div>
+          <h3>Robo-Speed</h3>
+          <div class="stats">
+            <div class="stat-line"><span>Speed:</span> <span>★★★★☆</span></div>
+            <div class="stat-line"><span>Anim Rate:</span> <span>★★☆☆☆</span></div>
+          </div>
+        </div>
+        <!-- Character 2 -->
+        <div class="char-card" data-char="anime_1">
+          <div class="char-avatar" style="background: #ec4899;">🌸</div>
+          <h3>Sakura Dash</h3>
+          <div class="stats">
+            <div class="stat-line"><span>Speed:</span> <span>★★☆☆☆</span></div>
+            <div class="stat-line"><span>Anim Rate:</span> <span>★★★★★</span></div>
+          </div>
+        </div>
+      </div>
+
+      <button id="btn-join" class="btn-primary" disabled>
+        <i class="fa-solid fa-bolt"></i> Enter 3D Arena
+      </button>
+      <button id="btn-back" class="btn-secondary" style="margin-top: 10px;">
+        Back
+      </button>
     </div>
 
     <!-- Race Arena -->
@@ -70,16 +106,19 @@
       </div>
 
       <div class="main-content">
-        <!-- Left: Tracks -->
+        <!-- Left: 3D Arena & HUD -->
         <div class="tracks-container glass-card">
-          <h3>🏁 Live Race Track</h3>
+          <h3>🎮 3D Race Display</h3>
           <p class="section-desc">MASH SPACEBAR TO RUN!</p>
 
-          <div id="track-list" class="track-list">
-            <!-- Tracks will be injected here via JS -->
-          </div>
+          <!-- The WebGL Canvas gets injected/appended here -->
+          <div id="game-canvas-container" class="canvas-wrapper"></div>
 
           <div class="local-stats">
+            <div class="stat-box">
+              <span class="label">Distance</span>
+              <span id="local-distance" class="value">0%</span>
+            </div>
             <div class="stat-box">
               <span class="label">Time</span>
               <span id="local-time" class="value">00:00.000</span>
