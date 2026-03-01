@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oracle Racer — Real-Time MQTT Battle</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Prompt:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- MQTT.js CDN -->
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <!-- Animated Background Blobs -->
+  <div class="background-effects">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Application Container -->
+  <div id="app" class="app-container">
+
+    <!-- Join Screen -->
+    <div id="join-screen" class="glass-card screen active">
+      <div class="card-header">
+        <div class="icon-wrap"><i class="fa-solid fa-flag-checkered"></i></div>
+        <h1 class="gradient-text">Oracle Racer</h1>
+      </div>
+      <p class="subtitle">MQTT Real-Time Mashing Battle</p>
+
+      <div class="input-group">
+        <label for="player-name">Oracle Name (Your Nickname)</label>
+        <input type="text" id="player-name" placeholder="Enter your name..." maxlength="20" autocomplete="off" />
+      </div>
+
+      <button id="btn-join" class="btn-primary">
+        <i class="fa-solid fa-bolt"></i> Join Race
+      </button>
+
+      <div class="hint">
+        <strong>How to play:</strong> Enter name -> Mash <kbd>SPACEBAR</kbd> as fast as you can to reach 100%!
+      </div>
+    </div>
+
+    <!-- Race Arena -->
+    <div id="race-screen" class="screen hidden">
+
+      <div class="header-glass">
+        <div>
+          <h2><i class="fa-solid fa-flag-checkered"></i> Oracle Racer </h2>
+          <p class="status-indicator">
+            <span id="mqtt-status-dot" class="dot wait"></span>
+            <span id="mqtt-status-text">Connecting to Broker...</span>
+          </p>
+        </div>
+        <div class="player-hud">
+          Playing as: <strong id="hud-name" class="gradient-text">---</strong>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <!-- Left: Tracks -->
+        <div class="tracks-container glass-card">
+          <h3>🏁 Live Race Track</h3>
+          <p class="section-desc">MASH SPACEBAR TO RUN!</p>
+
+          <div id="track-list" class="track-list">
+            <!-- Tracks will be injected here via JS -->
+          </div>
+
+          <div class="local-stats">
+            <div class="stat-box">
+              <span class="label">Time</span>
+              <span id="local-time" class="value">00:00.000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Hall of Fame -->
+        <div class="leaderboard-container glass-card">
+          <h3>🏆 Hall of Fame</h3>
+          <p class="section-desc">MQTT Retained Fast Times</p>
+
+          <div class="table-responsive">
+            <table id="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Oracle</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-body">
+                <tr>
+                  <td colspan="3" class="loading-td">Loading Hall of Fame...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
